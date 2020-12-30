@@ -46,12 +46,15 @@ zuul:
     
              
     middleware:
-      path: /users
+      path: /users/**
+      
       sensitiveHeaders:
-      service-id: USER-SERVICE    
+      service-id: USER-SERVICE 
+      stripPrefix: false   
          
     accounts:  
-      path: /accounts
+      path: /accounts/**
       sensitive-headers:
       service-id: ACCOUNT-SERVICE
+      stripPrefix: false
       
