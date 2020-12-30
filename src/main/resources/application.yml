@@ -1,0 +1,57 @@
+server:
+  port: 9090
+ 
+eureka:        
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+    
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8761/eureka/
+    healthcheck:
+      enabled: true
+    lease:
+      duration: 5
+    fetch-registry: true  
+   
+spring:     
+  application:
+    name: api-gateway   #current service name to be used by the eureka server
+  datasource:
+      url: jdbc:h2:mem:zuuldb
+      driverClassName: org.h2.Driver
+      username: sa
+      password: password
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    
+
+   
+     
+ 
+logging:
+  level:
+     com.omniri.assignment: DEBUG
+     org.springframework.security: INFO
+     org.springframework: DEBUG
+     
+hemkoder:
+     app:
+       jwtSecret: hemantSecretKey
+       jwtExpirationMs: 900000
+
+zuul:
+  routes:
+    
+             
+    middleware:
+      path: /users
+      sensitiveHeaders:
+      service-id: USER-SERVICE    
+         
+    accounts:  
+      path: /accounts
+      sensitive-headers:
+      service-id: ACCOUNT-SERVICE
+      
